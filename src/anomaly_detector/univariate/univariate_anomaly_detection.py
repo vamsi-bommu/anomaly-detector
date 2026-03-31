@@ -21,8 +21,8 @@ class UnivariateAnomalyDetector(BaseAnomalyDetector):
     def __init__(self, detect_mode = None):
         
         super(UnivariateAnomalyDetector, self).__init__()
-        self._error_msg = None
-        self._error_code = 'BadArgument'
+        self.error_msg = None
+        self.error_code = 'BadArgument'
         self._detect_mode = detect_mode
         self._detector = None
 
@@ -250,8 +250,8 @@ class UnivariateAnomalyDetector(BaseAnomalyDetector):
         if self._detect_mode is None:
             self._detect_mode = params['detect_mode']
         
-        if self._error_msg is not None:
-            raise AnomalyDetectionRequestError(error_code=self._error_code, error_msg=self.error_msg)
+        if self.error_msg is not None:
+            raise AnomalyDetectionRequestError(error_code=self.error_code, error_msg=self.error_msg)
 
         detector = AnomalyDetectionModel(series=data, **model_params)
         
