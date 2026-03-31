@@ -246,7 +246,11 @@ class UnivariateAnomalyDetector(BaseAnomalyDetector):
 
     def predict(self, context, data: pd.DataFrame, params: Optional[Dict[str, Any]] = None):
 
-        data, model_params = self.parse_arg(data, params)
+        result = self.parse_arg(data, params)
+        if result is None:
+            raise AnomalyDetectionRequestError(error_code=self.error_code, error_msg=self.error_msg)
+        data, model_params = result
+        
         if self._detect_mode is None:
             self._detect_mode = params['detect_mode']
         
